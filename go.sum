@@ -1,7 +1,7 @@
 dario.cat/mergo v1.0.0 h1:AGCNq9Evsj31mOgNPcLyXc+4PNABt905YmuqPYYpBWk=
 dario.cat/mergo v1.0.0/go.mod h1:uNxQE+84aUszobStD9th8a29P2fMDhsBdgRYvZOxGmk=
-github.com/JulienQNN/jwb-client-go v0.0.0-20240120143255-7f5c08c7374a h1:tfZ+qd2Oms+Jtykl3rFrFgTKr5NPcm9m17NaBd8msMA=
-github.com/JulienQNN/jwb-client-go v0.0.0-20240120143255-7f5c08c7374a/go.mod h1:xy04sOn9KfKrN8bfhrPDEAQ0yjsz8ZOtwUbzYhpukwo=
+github.com/JulienQNN/jwb-client-go v0.0.0-20240121125531-ddda3cc3ea6e h1:1b/BmAAMlVMO2yEhlVnREhFYRiR4X8WVOBFWH6/NTqo=
+github.com/JulienQNN/jwb-client-go v0.0.0-20240121125531-ddda3cc3ea6e/go.mod h1:Af4KaFCUjCKxp+KJEb9yvX0iybjQun4Cykkr7zIEewo=
 github.com/Masterminds/goutils v1.1.1 h1:5nUrii3FMTL5diU80unEVvNevw1nH4+ZV4DSLVJLSYI=
 github.com/Masterminds/goutils v1.1.1/go.mod h1:8cTjp+g8YejhMuvIA5y2vz3BpJxksy863GQaJW2MFNU=
 github.com/Masterminds/semver/v3 v3.1.1 h1:hLg3sBzpNErnxhQtUy/mmLR2I9foDujNK030IGemrRc=

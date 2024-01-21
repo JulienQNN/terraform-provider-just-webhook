@@ -3,7 +3,7 @@ module terraform-provider-jwb
 go 1.21.5
 
 require (
-	github.com/JulienQNN/jwb-client-go v0.0.0-20240120143255-7f5c08c7374a
+	github.com/JulienQNN/jwb-client-go v0.0.0-20240121125531-ddda3cc3ea6e
 	github.com/hashicorp/terraform-plugin-docs v0.16.0
 	github.com/hashicorp/terraform-plugin-framework v1.5.0
 	github.com/hashicorp/terraform-plugin-go v0.20.0
