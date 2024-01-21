@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    just-webhook = {
+    jwb = {
       source  = "JulienQNN/just-webhook"
       version = "0.1.0"
     }
