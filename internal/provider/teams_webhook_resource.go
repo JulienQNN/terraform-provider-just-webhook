@@ -218,8 +218,7 @@ func (r *TeamsWebhookResource) Create(
 		})
 	}
 
-	var potentialActions []jwb.PotentialAction
-	var potentialActionsIntermediate []jwb.PotentialActionIntermediate
+	var potentialActions []jwb.PotentialActionIntermediate
 	for _, potentialAction := range plan.PotentialAction {
 		var targets []jwb.Target
 
@@ -230,18 +229,11 @@ func (r *TeamsWebhookResource) Create(
 			})
 		}
 
-		potentialActions = append(potentialActions, jwb.PotentialAction{
+		potentialActions = append(potentialActions, jwb.PotentialActionIntermediate{
 			Name:    potentialAction.Name,
 			Targets: targets,
-		})
-
-		potentialActionsIntermediate = append(
-			potentialActionsIntermediate,
-			jwb.PotentialActionIntermediate{
-				Name:    potentialAction.Name,
-				Targets: targets,
-				Type:    "OpenUri",
-			},
+			Type:    "OpenUri",
+		},
 		)
 
 	}
@@ -252,7 +244,7 @@ func (r *TeamsWebhookResource) Create(
 		ThemeColor:      theme_color,
 		Summary:         "Summary text",
 		Sections:        sections,
-		PotentialAction: potentialActionsIntermediate,
+		PotentialAction: potentialActions,
 	}
 
 	_, err := r.client.CreateTeamsWebhook(plan.WebhookUrl, item)
@@ -269,7 +261,6 @@ func (r *TeamsWebhookResource) Create(
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	return
 }
 
 func (r *TeamsWebhookResource) Read(
