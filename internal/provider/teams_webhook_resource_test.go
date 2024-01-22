@@ -66,9 +66,7 @@ resource "jwb_webhook_teams" "test" {
 }
 `,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					// Verify number of items
 					resource.TestCheckResourceAttr("jwb_webhook_teams.test", "sections.#", "2"),
-					// Verify first order item
 					resource.TestCheckResourceAttr(
 						"jwb_webhook_teams.test",
 						"webhook_url",

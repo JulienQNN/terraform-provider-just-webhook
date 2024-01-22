@@ -3,10 +3,12 @@ package provider
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/JulienQNN/jwb-client-go"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // Ensure the implementation satisfies the expected interfaces.
@@ -24,6 +26,7 @@ type TeamsWebhookResource struct {
 }
 
 type teamsWebhookResourceModel struct {
+	LastUpdated     types.String           `tfsdk:"last_updated"`
 	WebhookUrl      string                 `tfsdk:"webhook_url"`
 	ThemeColor      string                 `tfsdk:"theme_color"`
 	Section         []sectionModel         `tfsdk:"sections"`
@@ -71,6 +74,10 @@ func (r *TeamsWebhookResource) Schema(
 ) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
+			"last_updated": schema.StringAttribute{
+				MarkdownDescription: "The last time the webhook was updated",
+				Computed:            true,
+			},
 			"webhook_url": schema.StringAttribute{
 				MarkdownDescription: "The webhook url to send the message to",
 				Required:            true,
@@ -130,7 +137,7 @@ func (r *TeamsWebhookResource) Schema(
 					Attributes: map[string]schema.Attribute{
 						"name": schema.StringAttribute{
 							MarkdownDescription: "The name of the potential action",
-							Optional:            true,
+							Required:            true,
 						},
 						"targets": schema.ListNestedAttribute{
 							MarkdownDescription: "The target(s) of the potential action",
@@ -143,7 +150,7 @@ func (r *TeamsWebhookResource) Schema(
 									},
 									"uri": schema.StringAttribute{
 										MarkdownDescription: "The uri of the target",
-										Optional:            true,
+										Required:            true,
 									},
 								},
 							},
@@ -255,6 +262,8 @@ func (r *TeamsWebhookResource) Create(
 		)
 	}
 
+	plan.LastUpdated = types.StringValue(time.Now().Format(time.RFC850))
+
 	// Set state to fully populated data
 	diags = resp.State.Set(ctx, plan)
 	resp.Diagnostics.Append(diags...)
@@ -276,6 +285,82 @@ func (r *TeamsWebhookResource) Update(
 	req resource.UpdateRequest,
 	resp *resource.UpdateResponse,
 ) {
+	// Retrieve values from plan
+	var plan teamsWebhookResourceModel
+	diags := req.Plan.Get(ctx, &plan)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Generate API request body from plan
+	theme_color := plan.ThemeColor
+
+	var sections []jwb.Section
+	for _, section := range plan.Section {
+		var facts []jwb.Fact
+
+		for _, fact := range section.Facts {
+			facts = append(facts, jwb.Fact{
+				Name:  fact.Name,
+				Value: fact.Value,
+			})
+		}
+
+		sections = append(sections, jwb.Section{
+			ActivityTitle:    section.ActivityTitle,
+			ActivitySubtitle: section.ActivitySubtitle,
+			ActivityImage:    section.ActivityImage,
+			Text:             section.Text,
+			Facts:            facts,
+			Markdown:         section.Markdown,
+		})
+	}
+
+	var potentialActions []jwb.PotentialActionIntermediate
+	for _, potentialAction := range plan.PotentialAction {
+		var targets []jwb.Target
+
+		for _, target := range potentialAction.Targets {
+			targets = append(targets, jwb.Target{
+				Os:  target.Os,
+				Uri: target.Uri,
+			})
+		}
+
+		potentialActions = append(potentialActions, jwb.PotentialActionIntermediate{
+			Name:    potentialAction.Name,
+			Targets: targets,
+			Type:    "OpenUri",
+		},
+		)
+
+	}
+
+	item := jwb.TeamsPayloadWebhook{
+		Type:            "MessageCard",
+		Context:         "http://schema.org/extensions",
+		ThemeColor:      theme_color,
+		Summary:         "Summary text",
+		Sections:        sections,
+		PotentialAction: potentialActions,
+	}
+
+	_, err := r.client.CreateTeamsWebhook(plan.WebhookUrl, item)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error creating webhook",
+			"Could not create webhook, unexpected error: "+err.Error(),
+		)
+	}
+	plan.LastUpdated = types.StringValue(time.Now().Format(time.RFC850))
+
+	// Set state to fully populated data
+	diags = resp.State.Set(ctx, plan)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
 }
 
 // Delete deletes the resource and removes the Terraform state on success.

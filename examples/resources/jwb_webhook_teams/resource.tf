@@ -1,3 +1,15 @@
+terraform {
+  required_providers {
+    jwb = {
+      source  = "JulienQNN/just-webhook"
+      version = "0.1.4"
+    }
+  }
+}
+
+provider "jwb" {
+}
+
 resource "jwb_webhook_teams" "this" {
   webhook_url = "https://123.webhook.office.com/webhookb2/****/IncomingWebhook/****/****"
   theme_color = "1BEF1D"
@@ -15,14 +27,12 @@ resource "jwb_webhook_teams" "this" {
     markdown = true
     },
     {
-      title    = "title 2"
-      image    = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_logo.jpg/480px-Microsoft_logo.jpg"
-      subtitle = "subtitle 2"
-      text     = "text 2"
+      title = "title 2"
+      image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_logo.jpg/480px-Microsoft_logo.jpg"
       facts = [
         {
           name  = "name 3"
-          value = "##  value 3"
+          value = "## value 3"
         },
         {
           name  = "name 4"

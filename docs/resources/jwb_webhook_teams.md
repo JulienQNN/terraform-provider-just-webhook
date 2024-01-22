@@ -13,6 +13,18 @@ description: |-
 ## Example Usage
 
 ```terraform
+terraform {
+  required_providers {
+    jwb = {
+      source  = "JulienQNN/just-webhook"
+      version = "0.1.4"
+    }
+  }
+}
+
+provider "jwb" {
+}
+
 resource "jwb_webhook_teams" "this" {
   webhook_url = "https://123.webhook.office.com/webhookb2/****/IncomingWebhook/****/****"
   theme_color = "1BEF1D"
@@ -30,14 +42,12 @@ resource "jwb_webhook_teams" "this" {
     markdown = true
     },
     {
-      title    = "title 2"
-      image    = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_logo.jpg/480px-Microsoft_logo.jpg"
-      subtitle = "subtitle 2"
-      text     = "text 2"
+      title = "title 2"
+      image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_logo.jpg/480px-Microsoft_logo.jpg"
       facts = [
         {
           name  = "name 3"
-          value = "##  value 3"
+          value = "## value 3"
         },
         {
           name  = "name 4"
@@ -78,21 +88,31 @@ resource "jwb_webhook_teams" "this" {
 - `sections` (Attributes List) The section(s) of the message (see [below for nested schema](#nestedatt--sections))
 - `theme_color` (String) The theme color of the message
 
+### Read-Only
+
+- `last_updated` (String) The last time the webhook was updated
+
 <a id="nestedatt--potential_action"></a>
 ### Nested Schema for `potential_action`
 
-Optional:
+Required:
 
 - `name` (String) The name of the potential action
+
+Optional:
+
 - `targets` (Attributes List) The target(s) of the potential action (see [below for nested schema](#nestedatt--potential_action--targets))
 
 <a id="nestedatt--potential_action--targets"></a>
 ### Nested Schema for `potential_action.targets`
 
+Required:
+
+- `uri` (String) The uri of the target
+
 Optional:
 
 - `os` (String) The os of the target, 'default' for OpenUri links
-- `uri` (String) The uri of the target
 
 
 
