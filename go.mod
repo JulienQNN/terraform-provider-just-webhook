@@ -11,6 +11,8 @@ require (
 	github.com/hashicorp/terraform-plugin-testing v1.6.0
 )
 
+replace github.com/JulienQNN/jwb-client-go v0.0.0-20240121125531-ddda3cc3ea6e => ../jwb-client-go
+
 require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect

@@ -31,30 +31,18 @@ type justWebhooksProvider struct {
 }
 
 // Metadata returns the provider type name.
-func (p *justWebhooksProvider) Metadata(
-	_ context.Context,
-	_ provider.MetadataRequest,
-	resp *provider.MetadataResponse,
-) {
+func (p *justWebhooksProvider) Metadata(_ context.Context, _ provider.MetadataRequest, resp *provider.MetadataResponse) {
 	resp.TypeName = "jwb"
 	resp.Version = p.version
 }
 
 // Schema defines the provider-level schema for configuration data.
-func (p *justWebhooksProvider) Schema(
-	_ context.Context,
-	_ provider.SchemaRequest,
-	resp *provider.SchemaResponse,
-) {
+func (p *justWebhooksProvider) Schema(_ context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{}
 }
 
 // Configure client for resources.
-func (p *justWebhooksProvider) Configure(
-	ctx context.Context,
-	req provider.ConfigureRequest,
-	resp *provider.ConfigureResponse,
-) {
+func (p *justWebhooksProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
 	tflog.Debug(ctx, "Creatin client")
 
 	client, err := jwb.NewClient()
@@ -80,6 +68,8 @@ func (p *justWebhooksProvider) DataSources(_ context.Context) []func() datasourc
 // Resources defines the resources implemented in the provider.
 func (p *justWebhooksProvider) Resources(_ context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		NewWebhookResource,
+		NewTeamsWebhookResource,
+		NewSlackWebhookMessageResource,
+		NewSlackWebhookAttachmentResource,
 	}
 }
