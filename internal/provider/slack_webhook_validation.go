@@ -19,14 +19,14 @@ func ValidateSlackMessageBlock(block slackMessageBlockModel) diag.Diagnostics {
 	if block.Type.ValueString() == "header" && block.Text == nil {
 		diags.AddError(
 			"Error Schema Validation",
-			fmt.Sprintf("If 'type' is 'header', then 'block' need 'text' parameter."),
+			fmt.Sprintln("If 'type' is 'header', then 'block' need 'text' parameter."),
 		)
 	}
 
 	if block.Type.ValueString() == "divider" && (block.Text != nil || block.Title != nil || block.ImageUrl.ValueString() != "" || block.AltText.ValueString() != "" || block.Accessory != nil || len(block.Fields) > 0 || len(block.Elements) > 0) {
 		diags.AddError(
 			"Error Schema Validation",
-			fmt.Sprintf("If 'type' is 'divider', then it should be the only field in the 'block'."),
+			fmt.Sprintln("If 'type' is 'divider', then it should be the only field in the 'block'."),
 		)
 	}
 
@@ -73,14 +73,14 @@ func ValidateSlackAttachmentBlock(block slackAttachmentBlockModel) diag.Diagnost
 	if block.Type.ValueString() == "header" && block.Text == nil {
 		diags.AddError(
 			"Error Schema Validation",
-			fmt.Sprintf("If 'type' is 'header', then 'block' need 'text' parameter."),
+			fmt.Sprintln("If 'type' is 'header', then 'block' need 'text' parameter."),
 		)
 	}
 
 	if block.Type.ValueString() == "divider" && (block.Text != nil || block.Title != nil || block.ImageUrl.ValueString() != "" || block.AltText.ValueString() != "" || block.Accessory != nil || len(block.Fields) > 0 || len(block.Elements) > 0) {
 		diags.AddError(
 			"Error Schema Validation",
-			fmt.Sprintf("If 'type' is 'divider', then it should be the only field in the 'block'."),
+			fmt.Sprintln("If 'type' is 'divider', then it should be the only field in the 'block'."),
 		)
 	}
 
