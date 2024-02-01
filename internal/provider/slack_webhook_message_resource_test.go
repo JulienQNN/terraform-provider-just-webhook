@@ -14,7 +14,7 @@ func TestSlackWebhookMessageResource(t *testing.T) {
 			{
 				Config: `
 resource "jwb_webhook_slack_message" "simple_with_image_and_link" {
-  webhook_url = "https://webhook.site/f33cf6e1-32fe-4317-b60b-7c249b482bb2"
+  webhook_url = "https://hooks.slack.com/services/***********/*******/****"
   blocks = [
     {
       type = "section"
