@@ -14,7 +14,7 @@ func TestTeamsWebhookResource(t *testing.T) {
 			{
 				Config: `
 resource "jwb_webhook_teams" "test" {
-  webhook_url = "https://webhook.site/8846fb3f-cb43-49e8-a204-0b2c9ee960d7"
+  webhook_url = "https://webhook.site/f33cf6e1-32fe-4317-b60b-7c249b482bb2"
   theme_color = "1BEF1D"
   sections = [{
     title    = "TITLE"
@@ -222,7 +222,7 @@ resource "jwb_webhook_teams" "test" {
 			{
 				Config: `
 resource "jwb_webhook_teams" "test" {
-  webhook_url = "https://webhook.site/8846fb3f-cb43-49e8-a204-0b2c9ee960d7"
+  webhook_url = "https://webhook.site/f33cf6e1-32fe-4317-b60b-7c249b482bb2"
   theme_color = "1BEF1D"
   sections = [{
     title    = "TITLE"
