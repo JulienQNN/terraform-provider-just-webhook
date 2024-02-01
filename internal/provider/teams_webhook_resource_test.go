@@ -14,7 +14,7 @@ func TestTeamsWebhookResource(t *testing.T) {
 			{
 				Config: `
 resource "jwb_webhook_teams" "test" {
-  webhook_url = "https://hooks.teams.com/services/***********/*******/****"
+  webhook_url = "https://webhook.site/f33cf6e1-32fe-4317-b60b-7c249b482bb2"
   theme_color = "1BEF1D"
   sections = [{
     title    = "TITLE"
@@ -70,7 +70,7 @@ resource "jwb_webhook_teams" "test" {
 					resource.TestCheckResourceAttr(
 						"jwb_webhook_teams.test",
 						"webhook_url",
-						"https://hooks.teams.com/services/***********/*******/****",
+						"https://webhook.site/f33cf6e1-32fe-4317-b60b-7c249b482bb2",
 					),
 					resource.TestCheckResourceAttr(
 						"jwb_webhook_teams.test",
@@ -222,7 +222,7 @@ resource "jwb_webhook_teams" "test" {
 			{
 				Config: `
 resource "jwb_webhook_teams" "test" {
-  webhook_url = "https://hooks.teams.com/services/***********/*******/****""
+  webhook_url = "https://webhook.site/f33cf6e1-32fe-4317-b60b-7c249b482bb2"
   theme_color = "1BEF1D"
   sections = [{
     title    = "TITLE"
@@ -280,7 +280,7 @@ resource "jwb_webhook_teams" "test" {
 					resource.TestCheckResourceAttr(
 						"jwb_webhook_teams.test",
 						"webhook_url",
-						"https://hooks.teams.com/services/***********/*******/****",
+						"https://webhook.site/f33cf6e1-32fe-4317-b60b-7c249b482bb2",
 					),
 					resource.TestCheckResourceAttr(
 						"jwb_webhook_teams.test",

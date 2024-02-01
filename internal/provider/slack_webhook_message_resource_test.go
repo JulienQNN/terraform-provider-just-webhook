@@ -14,7 +14,7 @@ func TestSlackWebhookMessageResource(t *testing.T) {
 			{
 				Config: `
 resource "jwb_webhook_slack_message" "simple_with_image_and_link" {
-  webhook_url = "https://hooks.slack.com/services/***********/*******/****"
+  webhook_url = "https://webhook.site/f33cf6e1-32fe-4317-b60b-7c249b482bb2"
   blocks = [
     {
       type = "section"
@@ -39,7 +39,7 @@ resource "jwb_webhook_slack_message" "simple_with_image_and_link" {
     }
   ]
 }`, Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("jwb_webhook_slack_message.simple_with_image_and_link", "webhook_url", "https://hooks.slack.com/services/***********/*******/****"),
+					resource.TestCheckResourceAttr("jwb_webhook_slack_message.simple_with_image_and_link", "webhook_url", "https://webhook.site/f33cf6e1-32fe-4317-b60b-7c249b482bb2"),
 					resource.TestCheckResourceAttr("jwb_webhook_slack_message.simple_with_image_and_link", "blocks.0.type", "section"),
 					resource.TestCheckResourceAttr("jwb_webhook_slack_message.simple_with_image_and_link", "blocks.0.text.type", "mrkdwn"),
 					resource.TestCheckResourceAttr("jwb_webhook_slack_message.simple_with_image_and_link", "blocks.0.text.text", "Hello, World!"),
